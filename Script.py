@@ -1,16 +1,5 @@
 class script(object):
-    START_TXT = """Yo...Yo...ANURAG {} 💖
-I'm Powerful Auto-Filter Bot You Can Use Me As A Auto-filter in Your Group
-
-Its Easy To Use Me; Just Add Me To Your Group As Admin, 
-Thats All, i will Provide Movies There...🤓🤪
-
-
-⚠️More Help Check Help Button Below
-
-😎 Powered by @MOVIES_ZILAA
-
-©️ Maintained By @GuruBhai11"""
+    START_TXT = """ Welcome To CineSubz VIP If Any Problem Please Contact @CSVIPAdmin """
     HELP_TXT = """
     🙋🏻‍♂️   Hellooo  {} 🤓
 
