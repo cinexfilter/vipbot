@@ -41,7 +41,7 @@ async def give_filter(client, message):
 async def next_page(bot, query):
     ident, req, key, offset = query.data.split("_")
     if int(req) not in [query.from_user.id, 0]:
-        return await query.answer("oKda", show_alert=True)
+        return await query.answer("මේක වෙන කෙනෙක් හොයපු එකක්.ඔයාටත් මේක ඕන නම් මේ නමම ඔයත් දාලා Search කරන්න.", show_alert=True)
     try:
         offset = int(offset)
     except:
@@ -64,7 +64,7 @@ async def next_page(bot, query):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}]-💠-{file.file_name}", callback_data=f'files#{file.file_id}'
+                    text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
                 ),
             ]
             for file in files
@@ -74,10 +74,6 @@ async def next_page(bot, query):
             [
                 InlineKeyboardButton(
                     text=f"{file.file_name}", callback_data=f'files#{file.file_id}'
-                ),
-                InlineKeyboardButton(
-                    text=f"{get_size(file.file_size)}",
-                    callback_data=f'files_#{file.file_id}',
                 ),
             ]
             for file in files
@@ -120,7 +116,7 @@ async def next_page(bot, query):
 async def advantage_spoll_choker(bot, query):
     _, user, movie_ = query.data.split('#')
     if int(user) != 0 and query.from_user.id != int(user):
-        return await query.answer("okDa", show_alert=True)
+        return await query.answer("මේක වෙන කෙනෙක් හොයපු එකක්.ඔයාටත් මේක ඕන නම් මේ නමම ඔයත් දාලා Search කරන්න.", show_alert=True)
     if movie_ == "close_spellcheck":
         return await query.message.delete()
     movies = SPELL_CHECK.get(query.message.reply_to_message.id)
@@ -135,8 +131,8 @@ async def advantage_spoll_choker(bot, query):
             k = (movie, files, offset, total_results)
             await auto_filter(bot, query, k)
         else:
-            k = await query.message.edit('')
-            await asyncio.sleep(10)
+            k = await query.message.edit('එක නම් දැනට සයිට් එකේ වගේ නෑ වගේ 😢 \n  \n ඔයාට ෆිල්ම් එක අපෙන් ඉල්ලීමක් කරන්න පුළුවන්.\n\n ෆිල්ම් ඉල්ලන විදිහ මේ ලින්ක් එක ක්ලික් කරලා දැනගන්න 👉 https://t.me/CinesubzRequest/232')
+            await asyncio.sleep(60)
             await k.delete()
 
 
@@ -403,11 +399,12 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "pages":
         await query.answer()
     elif query.data == "start":
-        buttons = [
-        [
-            InlineKeyboardButton('🔍 Contact', url='https://t.me/CSVIPAdmin')
-        ]
-        ]
+        buttons = [[
+            InlineKeyboardButton('➕ 𝙰𝚍𝚍 𝙼𝚎 𝚃𝚘 𝚈𝚘𝚞𝚛 𝙶𝚛𝚘𝚞𝚙𝚜 ➕', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
+        ], [
+            InlineKeyboardButton('🔍 𝚂𝚎𝚊𝚛𝚌𝚑', switch_inline_query_current_chat=''),
+            InlineKeyboardButton('🤖 𝚄𝚙𝚍𝚊𝚝𝚎𝚜', url='https://t.me/CineSubzMovies')
+        ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
             text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME),
@@ -434,11 +431,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
         )
     elif query.data == "about":
         buttons = [[
-            InlineKeyboardButton('🤖 𝚄𝚙𝚍𝚊𝚝𝚎𝚜', url='https://t.me/sources_cods'),
-            InlineKeyboardButton('♥️ Source', callback_data='source')
-        ], [
-            InlineKeyboardButton('🏠 Home', callback_data='start'),
-            InlineKeyboardButton('🔐 Close', callback_data='close_data')
+            InlineKeyboardButton('🤖 𝚄𝚙𝚍𝚊𝚝𝚎𝚜', url='https://t.me/CineSubzMovies'),
+            InlineKeyboardButton('♥️ Group', url='https://t.me/CineSubzChatNew')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await query.message.edit_text(
@@ -637,7 +631,7 @@ async def auto_filter(client, msg, spoll=False):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"[{get_size(file.file_size)}]-💠-{file.file_name}", callback_data=f'{pre}#{file.file_id}'
+                    text=f"{file.file_name}", callback_data=f'{pre}#{file.file_id}'
                 ),
             ]
             for file in files
@@ -647,10 +641,6 @@ async def auto_filter(client, msg, spoll=False):
             [
                 InlineKeyboardButton(
                     text=f"{file.file_name}",
-                    callback_data=f'{pre}#{file.file_id}',
-                ),
-                InlineKeyboardButton(
-                    text=f"{get_size(file.file_size)}",
                     callback_data=f'{pre}#{file.file_id}',
                 ),
             ]
@@ -704,7 +694,7 @@ async def auto_filter(client, msg, spoll=False):
             **locals()
         )
     else:
-        cap = f"<b>📁 Found</b> {total_results} <b>Files For</b> {search} \n\n<i>⚡ Uploaded By</i> @MOVIES_ZILAA"
+        cap = f"හායි යාලු 😃,ඔයා හොයන {search} පහළ ලිස්ට් \n එකේ තියන්වද  බලන්න.\nතියේ නම් Click කරලා ඊට පස්සේ එන\n බෝට්ගේ Start Button එක Click කලාම \nඔයාට එකේ විස්තර සහ 🔗 \nLink එක ගන්න පුළුවන්."
     if imdb and imdb.get('poster'):
         try:
             await message.reply_photo(photo=imdb.get('poster'), caption=cap[:1024],
@@ -760,7 +750,7 @@ async def advantage_spell_chok(msg):
     movielist += [(re.sub(r'(\-|\(|\)|_)', '', i, flags=re.IGNORECASE)).strip() for i in gs_parsed]
     movielist = list(dict.fromkeys(movielist))  # removing duplicates
     if not movielist:
-        k = await msg.reply("I couldn't find anything related to that. Check your spelling")
+        k = await msg.reply("හායි,ඔයා හොයන ෆිල්ම් එකේ නම මට පොඩ්ඩක් පැහැදිලි මදි 😢,\nපොඩ්ඩක් පහල ලිස්ට් එකෙන් හරියටම ඔයා හොයන්නේ\n මොකද්ද කියල Click කරන්නකෝ.\nඊට පස්සේ මන් ආයේ Check කරන්නම්.😌")
         await asyncio.sleep(8)
         await k.delete()
         return
@@ -772,7 +762,7 @@ async def advantage_spell_chok(msg):
         )
     ] for k, movie in enumerate(movielist)]
     btn.append([InlineKeyboardButton(text="Close", callback_data=f'spolling#{user}#close_spellcheck')])
-    await msg.reply("I couldn't find anything related to that\nDid you mean any one of these?",
+    await msg.reply("හායි,ඔයා හොයන ෆිල්ම් එකේ නම මට පොඩ්ඩක් පැහැදිලි මදි 😢,\nපොඩ්ඩක් පහල ලිස්ට් එකෙන් හරියටම ඔයා හොයන්නේ\n මොකද්ද කියල Click කරන්නකෝ.\nඊට පස්සේ මන් ආයේ Check කරන්නම්.😌",
                     reply_markup=InlineKeyboardMarkup(btn))
 
 
